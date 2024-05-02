@@ -120,7 +120,7 @@ export const EquipmentForm: React.FC<FormElementProps> = ({ showList, product })
                             <div className='col-sm-8'>
                                 <textarea className='form-control'
                                     name="descripcion"
-                                    defaultValue={product ? product.nombre : ''}
+                                    defaultValue={product ? product.descripcion : ''}
                                 />
 
                             </div>
