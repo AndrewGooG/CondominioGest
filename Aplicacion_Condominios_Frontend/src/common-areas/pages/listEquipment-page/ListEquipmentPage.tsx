@@ -44,6 +44,7 @@ export const ListEquipmentPage: React.FC<ListElementProps> = ({ showForm }) => {
                     <tr style={{ backgroundColor: '#f0f7da' }}>
                         <th>ID</th>
                         <th>Nombre</th>
+                        <th>Cantidad</th>
                         <th>Descripción</th>
                         <th>Costo</th>
                         <th>Id Area</th>
@@ -58,6 +59,7 @@ export const ListEquipmentPage: React.FC<ListElementProps> = ({ showForm }) => {
                                 <tr key={index}>
                                     <td>{equipments.id}</td>
                                     <td>{equipments.nombre}</td>
+                                    <td> {equipments.cantidad}</td>
                                     <td>{equipments.descripcion}</td>
                                     <td>{equipments.costo}</td>
                                     <td>{equipments.area_comun_id}</td>

@@ -3,6 +3,7 @@
     {
       "id": "1",
       "nombre": "Mesa de Ping Pong",
+      "cantidad": 1,
       "descripcion": "Mesa profesional para jugar ping pong.",
       "costo": 1600,
       "area_comun_id": 101,
@@ -11,6 +12,7 @@
     {
       "id": "2",
       "nombre": "Equipo de Sonido",
+      "cantidad": 1,
       "descripcion": "Sistema de sonido envolvente para eventos.",
       "costo": 5000,
       "area_comun_id": 103,
@@ -19,6 +21,7 @@
     {
       "id": "3",
       "nombre": "Proyector",
+      "cantidad": 3,
       "descripcion": "Proyector",
       "costo": "1400",
       "area_comun_id": "104",
@@ -27,6 +30,7 @@
     {
       "id": "4",
       "nombre": "Juego de Sillas y Mesas",
+      "cantidad": 4,
       "descripcion": "Conjunto de mobiliario para eventos al aire libre.",
       "costo": 1200,
       "area_comun_id": 105,
@@ -35,6 +39,7 @@
     {
       "id": "5",
       "nombre": "Cafetera",
+      "cantidad": 2,
       "descripcion": "Para hacer café",
       "costo": "14.00",
       "area_comun_id": "110",

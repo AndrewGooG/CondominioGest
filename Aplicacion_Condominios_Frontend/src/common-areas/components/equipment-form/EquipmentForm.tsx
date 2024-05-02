@@ -33,7 +33,7 @@ export const EquipmentForm: React.FC<FormElementProps> = ({ showList, product })
             element.id = generateSequentialId();
         }
 
-        if (!(element.id || element.nombre || element.descripcion || element.costo || element.area_comun_id || element.area_comun_nombre)) {
+        if (!(element.id || element.nombre || element.cantidad || element.descripcion || element.costo || element.area_comun_id || element.area_comun_nombre)) {
 
             console.log("Todos los datos son requeridos")
             return;
@@ -111,6 +111,16 @@ export const EquipmentForm: React.FC<FormElementProps> = ({ showList, product })
                                 <input className='form-control'
                                     name="nombre"
                                     defaultValue={product ? product.nombre : ''}
+                                />
+
+                            </div>
+                        </div>
+                        <div className='row mb-3'>
+                            <label className='col-sm-4 col-form-label'> Cantidad </label>
+                            <div className='col-sm-8'>
+                                <input className='form-control'
+                                    name="cantidad"
+                                    defaultValue={product ? product.cantidad: ''}
                                 />
 
                             </div>
