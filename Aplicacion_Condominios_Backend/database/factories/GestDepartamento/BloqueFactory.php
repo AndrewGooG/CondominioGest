@@ -19,7 +19,7 @@ class BloqueFactory extends Factory
         if (!\File::isDirectory($directory)) {
             \File::makeDirectory($directory, 0755, true, true);
         }
-        $listaImagenes = ['departamento/images/bloques/bloque (1).jpg', 'departamento/images/bloques/bloque (2).jpg', 'departamento/images/bloques/bloque (3).jpg', 'departamento/images/bloques/bloque (4).jpg', 'departamento/images/bloques/bloque (5).jpg', 'departamento/images/bloques/bloque (6).jpg', 'departamento/images/bloques/bloque (7).jpg', 'departamento/images/bloques/bloque (8).jpg', 'bloque_defecto.jpg'];
+        $listaImagenes = ['departamento/images/bloques/bloque (1).jpg', 'departamento/images/bloques/bloque (2).jpg', 'departamento/images/bloques/bloque (3).jpg', 'departamento/images/bloques/bloque (4).jpg', 'departamento/images/bloques/bloque (5).jpg', 'departamento/images/bloques/bloque (6).jpg', 'departamento/images/bloques/bloque (7).jpg', 'departamento/images/bloques/bloque (8).jpg', 'departamento/images/bloques/bloque_defecto.jpg'];
         $imageName = null;
         $obtenerImagen = $this->faker->randomElement($listaImagenes);
         $imagePath = $imageName ? $ruta . '/' . $imageName : $obtenerImagen;
