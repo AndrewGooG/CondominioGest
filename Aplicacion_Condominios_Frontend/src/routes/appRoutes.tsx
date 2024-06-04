@@ -25,6 +25,7 @@ import RegistrarParqueo from "../departamento/components/RegistrarParqueo";
 import CrearEdificio from "../departamento/components/CrearEdificio";
 import VisualizarParqueos from "../departamento/components/VisualizarParqueos";
 import HistorialVisitas from "../departamento/components/HistorialVisitas";
+import VisualizarBloques from "../departamento/components/VisualizarBloques";
 
 import AgregarEquipo from "../cobro_servicios/components/AgregarEquipo.js";
 import PagoAreaComun from "../cobro_servicios/components/PagoAreaComun";
@@ -212,6 +213,14 @@ const appRoutes: RouteType[] = [
         state: "dashboard.visualizarParqueo",
         sidebarProps: {
           displayText: "Visualizar Parqueos",
+        },
+      },
+      {
+        path: "/dashboard/visualizarBloques",
+        element: <VisualizarBloques />,
+        state: "dashboard.visualizarBloques",
+        sidebarProps: {
+          displayText: "Visualizar Bloques",
         },
       },
     ],

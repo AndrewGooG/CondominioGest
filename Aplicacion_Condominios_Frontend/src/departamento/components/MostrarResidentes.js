@@ -103,10 +103,14 @@ const MostrarResidentes = () => {
                             let departamento = "Niguno";
                             let edificio = "Niguno";
                             let bloque = "Niguno";
-                        if(typeof contrato !== 'undefined'){
+                        if (typeof contrato !== 'undefined') {
                             departamento = departamentos[contrato.departamento_id];
-                            edificio = edificios[departamento.edificio_id];
-                            bloque = bloques[edificio.bloque_id];
+                            if (typeof departamento !== 'undefined') {
+                                edificio = edificios[departamento.edificio_id];
+                                if (typeof edificio !== 'undefined') {
+                                    bloque = bloques[edificio.bloque_id];
+                                }
+                            }
                         }
                         return (
                             <Col className= "d-flex align-items-stretch" sm={12} md={6} lg={4} xl={3} key={residente.id}>

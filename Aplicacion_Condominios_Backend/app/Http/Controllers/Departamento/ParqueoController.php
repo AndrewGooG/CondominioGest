@@ -26,7 +26,7 @@ class ParqueoController extends Controller
         $validatedData = $request->validate([
             'nombre_parqueo' => 'required',
             'direccion_parqueo' => 'required',
-            'departamento_id' => 'required'
+            'departamento_id' => 'nullable'
         ]);
         $parqueo->fill($validatedData);
         try{
@@ -60,7 +60,7 @@ class ParqueoController extends Controller
         $validatedData = $request->validate([
             'nombre_parqueo' => 'required',
             'direccion_parqueo' => 'required',
-            'departamento_id' => 'required'
+            'departamento_id' => 'nullable'
         ]);
         $parqueo->fill($validatedData);
         try{

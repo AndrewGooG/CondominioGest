@@ -17,3 +17,55 @@ yarn-error.log
 /public/common-areas/images/**
 /public/CommonAreas/images/**
 /public/departamento/images/**
+# Ignora todos los archivos en la carpeta
+/public/departamento/images/departamentos/*
+
+# Pero no ignores este archivo
+!/public/departamento/images/departamentos/departamento_pred.jpeg
+!/public/departamento/images/departamentos/departamento (1).jpg
+!/public/departamento/images/departamentos/departamento (2).jpg
+!/public/departamento/images/departamentos/departamento (3).jpg
+!/public/departamento/images/departamentos/departamento (4).jpg
+!/public/departamento/images/departamentos/departamento (5).jpg
+!/public/departamento/images/departamentos/departamento (6).jpg
+!/public/departamento/images/departamentos/departamento (7).jpg
+!/public/departamento/images/departamentos/departamento (8).jpg
+
+/public/departamento/images/residentes/*
+
+# Pero no ignores este archivo
+!/public/departamento/images/residentes/residente_default.png
+!/public/departamento/images/residentes/perfil (1).jpg
+!/public/departamento/images/residentes/perfil (2).jpg
+!/public/departamento/images/residentes/perfil (3).jpg
+!/public/departamento/images/residentes/perfil (4).jpg
+!/public/departamento/images/residentes/perfil (5).jpg
+!/public/departamento/images/residentes/perfil (6).jpg
+!/public/departamento/images/residentes/perfil (7).jpg
+# Ignora todos
+
+/public/departamento/images/edificios/*
+
+# Pero no ignores este archivo
+!/public/departamento/images/edificios/edificio_default.jpg
+!/public/departamento/images/edificios/edificio (1).jpg
+!/public/departamento/images/edificios/edificio (2).jpg
+!/public/departamento/images/edificios/edificio (3).jpg
+!/public/departamento/images/edificios/edificio (4).jpg
+!/public/departamento/images/edificios/edificio (5).jpg
+!/public/departamento/images/edificios/edificio (6).jpg
+
+
+# Ingonra todos los elemento de esta carpeta
+/public/departamento/images/bloques/*
+
+# Pero no ignores este archivo
+!/public/departamento/images/bloques/bloque_defecto.jpg
+!/public/departamento/images/bloques/bloque (1).jpg
+!/public/departamento/images/bloques/bloque (2).jpg
+!/public/departamento/images/bloques/bloque (3).jpg
+!/public/departamento/images/bloques/bloque (4).jpg
+!/public/departamento/images/bloques/bloque (5).jpg
+!/public/departamento/images/bloques/bloque (6).jpg
+!/public/departamento/images/bloques/bloque (7).jpg
+!/public/departamento/images/bloques/bloque (8).jpg

@@ -17,7 +17,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import "./customs.css";
 import ModalCon from "./ModalConfirm";
 import ModalPar from "./ModalParqueo";
-import { Form } from "react-router-dom";
+//import { Form } from "react-router-dom";
 
 const endpoint = "http://localhost:8000/api";
 
@@ -90,13 +90,15 @@ class RegistrarParqueo extends Component {
   handleBloqueSeleccionado = (event) => {
     const idBloque = event.target.value;
     this.setState({ bloqueSeleccionado: idBloque });
-
+    this.setState({ edificioSeleccionado: "" });
+    this.setState({ departamento_seleccionado: "" });
     this.cargarOpcionesDependientes(idBloque);
   };
 
   handleEdificioSeleccionado = (e) => {
     const edificio = e.target.value;
     this.setState({ edificioSeleccionado: edificio });
+    this.setState({ departamento_seleccionado: "" });
     this.cargarDepartamentos(edificio);
   };
 
@@ -299,11 +301,12 @@ class RegistrarParqueo extends Component {
                       name="bloque_id"
                       id="bloque_id"
                       onChange={this.handleBloqueSeleccionado}
+                      value = {this.state.bloqueSeleccionado}
                       invalid={
                         this.state.errors.bloque_seleccionado ? true : false
                       }
                     >
-                      <option disabled selected>
+                      <option disabled value="">
                         {" "}
                         Seleccionar bloque
                       </option>
@@ -325,11 +328,12 @@ class RegistrarParqueo extends Component {
                       name="edificio_id"
                       id="edificio_id"
                       onChange={this.handleEdificioSeleccionado}
+                      value = {this.state.edificioSeleccionado}
                       invalid={
                         this.state.errors.edificio_seleccionado ? true : false
                       }
                     >
-                      <option disabled selected>
+                      <option disabled value="">
                         {" "}
                         Seleccionar edificio
                       </option>
@@ -356,12 +360,12 @@ class RegistrarParqueo extends Component {
                       name="departamento_seleccionado"
                       id="departamento_seleccionado"
                       onChange={this.handleSelect}
+                      value={this.state.departamento_seleccionado}
                       invalid={
                         this.state.errors.departamento_seleccionado
                           ? true
                           : false
                       }
-                      value={this.state.departamento_seleccionado}
                     >
                       <option disabled value="">
                         Seleccione un departamento

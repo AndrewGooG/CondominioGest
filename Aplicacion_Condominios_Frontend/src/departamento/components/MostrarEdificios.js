@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import imgPrueba from '../../assets/images/backgroundImage.png';
 import './DepartamentosCss.css';
 import Cookies from 'universal-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
