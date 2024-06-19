@@ -40,10 +40,10 @@ function ControlRetrasos() {
           let nombre = empleado.nombre;
           let apellido = empleado.apellido;
           let ci = empleado.ci;
-          let area = empleado.contracts[0].area;
-          let cargo = empleado.contracts[0].cargo;
-          let fechaInicio = empleado.contracts[0].fecha_inicio;
-          let fechaFinal = empleado.contracts[0].fecha_final;
+          let area = empleado.contracts[empleado.contracts.length-1].area;
+          let cargo = empleado.contracts[empleado.contracts.length-1].cargo;
+          let fechaInicio = empleado.contracts[empleado.contracts.length-1].fecha_inicio;
+          let fechaFinal = empleado.contracts[empleado.contracts.length-1].fecha_final;
 
           let fechaRetraso = empleado.atrasos[j].fecha;
           var mydate = new Date(fechaRetraso);

@@ -21,6 +21,7 @@ use App\Http\Controllers\Empleados\PositionController;
 use App\Http\Controllers\Empleados\AtrasoController;
 use App\Http\Controllers\Empleados\AusenciaController;
 use App\Http\Controllers\Empleados\ContractAltController;
+use App\Http\Controllers\Empleados\AsistenciaController;
 
 use App\Http\Controllers\Notificaciones\PersonaController;
 use App\Http\Controllers\Notificaciones\AuthController;
@@ -175,6 +176,8 @@ Route::post('/actualizar_motivo/{id}',[AtrasoController::class, 'actualizarMotiv
 Route::post('/add_area', [AreaController::class, 'store']);
 Route::get('/get_all_areas', [AreaController::class, 'getAll']);
 Route::get('/get_area_id/{id}', [AreaController::class, 'getById']);
+Route::get('/borrar_area_id/{id}', [AreaController::class, 'delete']);
+Route::get('/editar_area_id/{id}', [AreaController::class, 'update']);
 
 Route::post('/add_benefit', [BenefitController::class, 'store']);
 Route::get('/get_all_benefits', [BenefitController::class, 'getAll']);
@@ -185,6 +188,7 @@ Route::get('/get_all_positions', [PositionController::class, 'getAll']);
 Route::post('/actualizar_motivo_ausencia/{id}',[AusenciaController::class, 'actualizarMotivoAusencia']);
 Route::get('obtener_ausencias',[AusenciaController::class,'obtenerAusencias']);
 
+Route::get('obtener_asistencias',[AsistenciaController::class,'obtenerAsistencias']);
 
 // MANTENIMIENTO
 Route::get('/CategoriaServicio', [CategoriaServicioController::class,'getCategoriaServicio']);

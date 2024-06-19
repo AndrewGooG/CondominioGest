@@ -19,6 +19,8 @@ import {
 } from "mdb-react-ui-kit";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 function VerAreas() {
   
@@ -93,22 +95,13 @@ function VerAreas() {
   };
 
   const manejarBuscador = (e) => {
-    let tipo_contrato_seleccionado_valor = document.querySelector("#desplegable-tipo_contrato").value;
 
-    if(tipo_contrato_seleccionado_valor === "Todos"){
-      document.querySelectorAll(".empleado").forEach(empleado =>{
-        empleado.querySelector(".empleado_nombre").textContent.toLowerCase().includes(e.target.value.toLowerCase())
-          ?empleado.classList.remove("filtro")
-          :empleado.classList.add("filtro")
-      })
-    }else{
-      document.querySelectorAll(".empleado").forEach(empleado =>{
-        empleado.querySelector(".empleado_nombre").textContent.toLowerCase().includes(e.target.value.toLowerCase())
-        && empleado.querySelector(".tipo_contrato").textContent.toLowerCase().includes(tipo_contrato_seleccionado_valor.toLowerCase())
-          ?empleado.classList.remove("filtro")
-          :empleado.classList.add("filtro")
-      })
-    }
+    document.querySelectorAll(".empleado").forEach(empleado =>{
+      empleado.querySelector(".empleado_nombre").textContent.toLowerCase().includes(e.target.value.toLowerCase())
+        ?empleado.classList.remove("filtro")
+        :empleado.classList.add("filtro")
+    })
+
   }
 
   const [show, setShow] = useState(false);
@@ -145,7 +138,6 @@ function VerAreas() {
     setCharges([]);
     setArea("");
   }
-
 
   return (
     <>
@@ -236,17 +228,8 @@ function VerAreas() {
                 name="buscador"
                 id="buscador-admin"
                 placeholder="Buscar por nombre..."
+                onChange={manejarBuscador}
               />
-            </div>
-            <div className="capsulaDesplegable-admin">
-              <select
-                id="desplegable-tipo_contrato"
-              > 
-                <option value="Todos">Todos</option>
-                <option value="Mixto">Mixto</option>
-                <option value="Empresa">Empresa</option>
-                <option value="Empleado">Empleado</option>
-              </select>
             </div>
           </div>
         </Col>
@@ -259,11 +242,11 @@ function VerAreas() {
             {areas.map((area) => {
               return (
                 <>
-                  <MDBCol md="4">
+                  <MDBCol md="4" className="empleado">
                     <MDBCard className="mb-4">
                       <MDBCardHeader>
                         <MDBTypography tag="h4" className="mb-0">
-                          <strong>{area.nombre}</strong>
+                          <strong className="empleado_nombre">{area.nombre}</strong>
                         </MDBTypography>
                       </MDBCardHeader>
                       <MDBCardBody>

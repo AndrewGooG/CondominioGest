@@ -282,7 +282,7 @@ function TurnRegister() {
                     >
                       <strong className="mb-0">Fecha de inicio de contrato:</strong>
                       <p className="mb-0">
-                        {empleado.contracts[0].fecha_inicio}
+                        {empleado.contracts[empleado.contracts.length-1].fecha_inicio}
                       </p>
                     </div>
                     <div
@@ -295,9 +295,9 @@ function TurnRegister() {
                     >
                       <strong className="mb-0">Fecha de fin de contrato:</strong>
                       <p className="mb-0">
-                        {empleado.contracts[0].fecha_final === null
+                        {empleado.contracts[empleado.contracts.length-1].fecha_final === null
                           ? "Indefinido"
-                          : empleado.contracts[0].fecha_final}
+                          : empleado.contracts[empleado.contracts.length-1].fecha_final}
                       </p>
                     </div>
                     <div
@@ -309,7 +309,7 @@ function TurnRegister() {
                       }}
                     >
                       <strong className="mb-0">Area:</strong>
-                      <p className="mb-0">{empleado.contracts[0].area}</p>
+                      <p className="mb-0">{empleado.contracts[empleado.contracts.length-1].area}</p>
                     </div>
                     <div
                       style={{
@@ -320,7 +320,7 @@ function TurnRegister() {
                       }}
                     >
                       <strong className="mb-0">Cargo:</strong>
-                      <p className="mb-0">{empleado.contracts[0].cargo}</p>
+                      <p className="mb-0">{empleado.contracts[empleado.contracts.length-1].cargo}</p>
                     </div>
                   </div>
                 </div>
@@ -346,7 +346,7 @@ function TurnRegister() {
                           onChange={() => handleHorarios(0, "personalizado")} //Misma funcion que la anterior.
                         />
                         {/* Horario de Seguridad */}
-                        {empleado.contracts[0].area === "Seguridad" && (
+                        {empleado.contracts[empleado.contracts.length-1].area === "Seguridad" && (
                           <>
                             <MDBRadio
                               name="HorariosTrabajo"
@@ -369,7 +369,7 @@ function TurnRegister() {
                           </>
                         )}
                         {/* Horario de Limepieza */}
-                        {empleado.contracts[0].area === "Limpieza" && (
+                        {empleado.contracts[empleado.contracts.length-1].area === "Limpieza" && (
                           <>
 
                             <MDBRadio

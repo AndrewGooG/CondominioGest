@@ -9,6 +9,7 @@ use App\Models\Empleados\WorkingHour;
 use App\Models\Empleados\Atraso;
 use App\Models\Empleados\Ausencia;
 use App\Models\Empleados\ContractAlt;
+use App\Models\Empleados\Asistencia;
 
 class Employee extends Model
 {
@@ -23,7 +24,7 @@ class Employee extends Model
         'ci'
     ];
 
-    protected $with = ['contracts', 'working_hours','atrasos', 'ausencias', 'contracts_alt'];
+    protected $with = ['contracts', 'working_hours','atrasos', 'ausencias', 'contracts_alt', 'asistencias'];
 
     public function contracts(){
 

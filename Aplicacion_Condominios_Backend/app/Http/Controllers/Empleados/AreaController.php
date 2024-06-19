@@ -41,4 +41,26 @@ class AreaController extends Controller
             'message' =>'Area encontrada exitosamente',
             'area' => $area]);
     }
+
+    public function delete($id){
+        $area = Area::find($id);
+        $area->delete();
+        return response()->json([
+            'status' => 200,
+            'message' =>'Area eliminada exitosamente']);
+    }
+
+
+
+    public function update(Request $request, $id){
+
+        $area = Area::find($id);
+
+        $area-> nombre = $request -> nombre;
+        $area -> update();
+
+        return response()->json([
+            'status' => 200,
+            'message' =>'Empleado actualizado exitosamente']);
+    }
 }

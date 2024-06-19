@@ -9,19 +9,21 @@ use App\Models\Empleados\Employee;
 use App\Models\Empleados\WorkingHour;
 use App\Models\Empleados\Ausencia;
 use App\Models\Empleados\Asistencia;
+use App\Models\Empleados\Contract;
 
+class AusenciaController extends Controller
+{
 
-class AusenciaController extends Controller{
-
-    public function store($idEmpleado,$fecha,$motivo){
+    public function store($idEmpleado, $fecha, $motivo)
+    {
 
         $ausencia = new Ausencia();
 
-        $ausencia -> id_empleado = $idEmpleado;
-        $ausencia -> fecha = $fecha;
-        $ausencia -> motivo = $motivo;
+        $ausencia->id_empleado = $idEmpleado;
+        $ausencia->fecha = $fecha;
+        $ausencia->motivo = $motivo;
 
-        $ausencia -> save();
+        $ausencia->save();
 
         return response()->json([
             'status' => 200,
@@ -29,7 +31,8 @@ class AusenciaController extends Controller{
         ]);
     }
 
-    public function obtenerAusencias(){
+    public function obtenerAusencias()
+    {
         $ausenciasRealizadas = $this->agregarAusencias();
         $ausencias = Employee::has('ausencias')->get();
 
@@ -39,13 +42,14 @@ class AusenciaController extends Controller{
         ]);
     }
 
-    public function agregarAusencias(){
+    public function agregarAusencias()
+    {
         date_default_timezone_set('America/La_Paz');
         $fechaActual = time();
-        $fechaAnterior = strtotime('-1 day',$fechaActual);
-        $fechaanteriorFormateada = date('Y-m-d',$fechaAnterior);
-        $numeroDiaLaboral = date('w',$fechaAnterior);
-        $nombreDiaLaboral = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'][$numeroDiaLaboral];
+        $fechaAnterior = strtotime('-1 day', $fechaActual);
+        $fechaanteriorFormateada = date('Y-m-d', $fechaAnterior);
+        $numeroDiaLaboral = date('w', $fechaAnterior);
+        $nombreDiaLaboral = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'][$numeroDiaLaboral];
 
         $empleados = Employee::all();
 
@@ -53,29 +57,37 @@ class AusenciaController extends Controller{
 
         $correcto = false;
 
-        foreach($empleados as $empleado){
-            $idEmpleado = $empleado -> id;
-            $diaLaboralEmpleado = WorkingHour::where('empleado',$idEmpleado)
-                                               ->where('dia',$nombreDiaLaboral)
-                                               ->first();
+        foreach ($empleados as $empleado) {
+            $idEmpleado = $empleado->id;
+            $diaLaboralEmpleado = WorkingHour::where('empleado', $idEmpleado)
+                ->where('dia', $nombreDiaLaboral)
+                ->first();
 
-            $asistencia = Asistencia::where('id_empleado',$idEmpleado)
-                                      ->where('fecha',$fechaanteriorFormateada)
-                                      ->first();
+            $asistencia = Asistencia::where('id_empleado', $idEmpleado)
+                ->where('fecha', $fechaanteriorFormateada)
+                ->first();
 
-            $ausenciaGuardada = Ausencia::where('id_empleado',$idEmpleado)
-                                          ->where('fecha',$fechaanteriorFormateada)
-                                          ->first();
+            $ausenciaGuardada = Ausencia::where('id_empleado', $idEmpleado)
+                ->where('fecha', $fechaanteriorFormateada)
+                ->first();
 
-            if($diaLaboralEmpleado && $asistencia === null && $ausenciaGuardada === null){
-                $ausencia = new Ausencia();
-                $ausencia -> id_empleado = $idEmpleado;
-                $ausencia -> fecha =  $fechaanteriorFormateada;
-                $ausencia -> save();
+            $inicioContratoEmpleado = Contract::where('empleado', $idEmpleado)
+                ->orderBy('fecha_inicio', 'desc')
+                ->first();
+
+            if ($inicioContratoEmpleado) {
+                $fechaContrato = $inicioContratoEmpleado->fecha_inicio;
+                if (strtotime($fechaanteriorFormateada) >= strtotime($fechaContrato)) {
+                    if ($diaLaboralEmpleado && $asistencia === null && $ausenciaGuardada === null) {
+                        $ausencia = new Ausencia();
+                        $ausencia->id_empleado = $idEmpleado;
+                        $ausencia->fecha =  $fechaanteriorFormateada;
+                        $ausencia->save();
+                    }
+
+                    $correcto = true;
+                }
             }
-
-            $correcto = true;
-
         }
 
         return response()->json([
@@ -84,18 +96,18 @@ class AusenciaController extends Controller{
         ]);
     }
 
-    public function actualizarMotivoAusencia(Request $request, $id){
+    public function actualizarMotivoAusencia(Request $request, $id)
+    {
 
         $ausencia = Ausencia::find($id);
 
-        $ausencia-> motivo = $request -> motivo;
+        $ausencia->motivo = $request->motivo;
 
-        $ausencia -> update();
+        $ausencia->update();
 
         return response()->json([
             'status' => 200,
-            'message' =>'Ausencia actualizado exitosamente']);
-
+            'message' => 'Ausencia actualizado exitosamente'
+        ]);
     }
-
 }
