@@ -147,7 +147,7 @@ export default function PersonalPage() {
       setEstadoActual(solicitudServicio.idEstado);
       setServicioActual(solicitudServicio);
 
-      contratoList.filter((element: any) => {
+      contratoList?.filter((element: any) => {
         if (element.idSolicitud == solicitudServicio.idRegistroSolicitud) {
           setDisabledEstado(false);
         }
