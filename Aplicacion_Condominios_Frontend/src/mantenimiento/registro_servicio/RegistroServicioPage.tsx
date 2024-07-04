@@ -153,10 +153,20 @@ export default function PersonalPage() {
     setSolicitud({ ...solicitud, descripcion: e.target.value });
   };
   const handleChangeNombre = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSolicitud({ ...solicitud, nombrePropietario: e.target.value });
+    const { value } = e.target;
+    const onlyAlphabets = value.replace(/[^a-zA-Z\s]/g, ""); // Permitir solo letras y espacios
+    setSolicitud({ ...solicitud, nombrePropietario: onlyAlphabets });
   };
-  const handleChangeTelefono = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSolicitud({ ...solicitud, numerReferencia: e.target.value });
+
+  const handleChangeTelefono = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    const onlyNums = value.replace(/[^0-9]/g, "");
+    if (
+      onlyNums === "" ||
+      (onlyNums.length <= 8 && /^[42367]/.test(onlyNums))
+    ) {
+      setSolicitud({ ...solicitud, numerReferencia: onlyNums });
+    }
   };
 
   const handleClickRegistrar = async () => {
@@ -178,12 +188,26 @@ export default function PersonalPage() {
       };
     }
 
-    console.log("🚀 ~ handleClickRegistrar ~ dataToSend:", dataToSend);
+    // console.log("🚀 ~ handleClickRegistrar ~ dataToSend:", dataToSend);
+    if (currentDestino === 1) {
+      if (ubicacion === "") {
+        alert("Todos los campos obligatorios deben estar llenos");
+        return;
+      }
+    }
 
-    const response = await createSolicitudServicio(dataToSend);
-
-    console.log(response);
-    window.location.reload();
+    if (
+      solicitud.nombrePropietario !== "" &&
+      solicitud.numerReferencia !== "" &&
+      solicitud.idCategoria !== 0
+    ) {
+      const response = await createSolicitudServicio(dataToSend);
+      console.log(response);
+      alert("La informacion proporcionada se ha registrado");
+      window.location.reload();
+    } else {
+      alert("Los campos obligatorios deben estar llenos");
+    }
   };
 
   const handleChangeBloque = async (
@@ -388,7 +412,7 @@ export default function PersonalPage() {
                 required
                 id="outlined"
                 label="Telefono"
-                type="number"
+                type="tel"
                 placeholder="Ingrese telefono"
                 value={solicitud.numerReferencia}
                 onChange={handleChangeTelefono}
