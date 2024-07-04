@@ -51,9 +51,11 @@ function AssignContract() {
 
   const handleSubmit =  async () => {
 
+    console.log((contratoAlt))
+
+     
+
     console.log(longitud)
-
-
 
     console.log((contratoAlt.length))
     const data = new FormData();
@@ -61,7 +63,7 @@ function AssignContract() {
     data.append("tipo_contrato", contratoAlt[(contratoAlt.length -1)].tipo_contrato);
     data.append("fecha_inicio", contratoAlt[(contratoAlt.length -1)].fecha_inicio);
 
-    if(contratoAlt[0].fecha_final === null){
+    if(contratoAlt[(contratoAlt.length -1)].fecha_final === null){
       data.append("fecha_final", "");
     }else{
       data.append("fecha_final", contratoAlt[(contratoAlt.length -1)].fecha_final);
@@ -103,6 +105,7 @@ function AssignContract() {
       }
       window.location.reload();
     }
+      
       
   };
 
@@ -206,7 +209,6 @@ function AssignContract() {
             Si
           </Button>
 
-
           <Button variant="secondary" onClick={handleSubmit}>
             No
           </Button>
@@ -263,14 +265,18 @@ function AssignContract() {
                   <td>
 
                   {empleado.estado_contrato === "Pendiente" ? (
-                          <Button onClick={() => abrirModalPendiente(empleado)} style={{ backgroundColor: '#65B8A6', borderColor: '#65B8A6' }}><QuestionMarkIcon/></Button>
-                          
+                          <Button onClick={() => abrirModalPendiente(empleado)} style={{ backgroundColor: '#65B8A6', borderColor: '#65B8A6' }}>Confirmar</Button>
                         ) : (
                           <>
                           {empleado.estado_contrato === "Contratado" ? (
                             <div> Contrato {empleado.contracts[0].tipo_contrato}</div>
                           ) : (
-                              <Button variant="danger" onClick={() => firmarContrato(empleado)} style={{ backgroundColor: '#65B8A6', borderColor: '#65B8A6' }}><AddIcon/></Button>
+                            <>
+                             {empleado.estado_contrato === "Expirado" ? (<Button variant="danger" onClick={() => firmarContrato(empleado)} style={{ backgroundColor: '#65B8A6', borderColor: '#65B8A6' }}>Renovar</Button>) 
+                             : (<Button variant="danger" onClick={() => firmarContrato(empleado)} style={{ backgroundColor: '#65B8A6', borderColor: '#65B8A6' }}>Contratar</Button>)}
+                            
+                            </>
+                              
                           )}
                           </>
                   )}

@@ -34,7 +34,7 @@ class EmployeeController extends Controller
     public function getAll(){
         $empleados = Employee::all();
         foreach($empleados as $empleado){ 
-            if($empleado['estado_contrato'] === "Contratado" || $empleado['estado_contrato'] === 'Renovar'){
+            if($empleado['estado_contrato'] === "Contratado" || $empleado['estado_contrato'] === 'Expirado'){
                 $numContratos = count($empleado->contracts);
                 $ultimoIndice = $numContratos - 1;
                 $ultimoContratoEmpleado = $empleado->contracts[$ultimoIndice];
@@ -45,8 +45,11 @@ class EmployeeController extends Controller
                     date_default_timezone_set('America/La_Paz');
                     $fechaActual = date('Y-m-d');
                     if(strtotime($fechaActual) > strtotime($fechaFinalContrato)){
-                        $empleado -> estado_contrato = "Renovar"; 
+                        $empleado -> estado_contrato = "Expirado"; 
                         $empleado -> save(); 
+                        $idEmpleado = $empleado -> id;
+                        WorkingHour::where('empleado',$idEmpleado)
+                                    ->delete();
                     }
                 }
             }
@@ -115,7 +118,7 @@ class EmployeeController extends Controller
         $empleadosConContrato = Employee::has('contracts')->get();
 
         foreach ($empleadosConContrato as $key => $empleado) {
-            if($empleado['estado_contrato'] === 'Renovar'){
+            if($empleado['estado_contrato'] === 'Expirado'){
                 unset($empleadosConContrato[$key]); // Elimina el elemento si el nombre es 'María'
             }
         }

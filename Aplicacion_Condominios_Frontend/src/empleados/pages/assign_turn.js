@@ -30,7 +30,6 @@ function AssignTurn() {
 
     console.log(respuesta.data.empleados)
 
-    
     for (let i = 0; i < respuesta.data.empleados.length; i++) {
       let fecha = new Date(respuesta.data.empleados[i].contracts[0].fecha_inicio);
       
@@ -40,9 +39,13 @@ function AssignTurn() {
       respuesta.data.empleados[i]["fecha_convertida"] = format4
     }
 
+    console.log(respuesta.data.empleados)
+
+    const keysArray = Object.values(respuesta.data.empleados);
+
     //const respuesta_area = await axios.get(`http://127.0.0.1:8000/api/get_area_id/${id}`)
 
-    setEmpleados(respuesta.data.empleados)
+    setEmpleados((keysArray))
   }
 
   const asignarTurnos = (empleado)  => {
@@ -316,7 +319,7 @@ function AssignTurn() {
             <tr>
               <th>Nombre</th>
               <th>Apellido</th>
-              <th>Inicio de Contrato</th>
+              <th>CI</th>
               <th>Area</th>
               <th>Turnos</th>
             </tr>
@@ -327,7 +330,7 @@ function AssignTurn() {
                 <tr className="empleado">
                   <td className="empleado_nombre">{empleado.nombre}</td>
                   <td>{empleado.apellido}</td>
-                  <td>{empleado.fecha_convertida}</td>
+                  <td>{empleado.ci}</td>
                   <td
                     className="empleado_fecha_inicio"
                     style={{ display: "none" }}

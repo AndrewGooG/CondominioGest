@@ -5,59 +5,52 @@ import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Cookies from 'universal-cookie';
-import '../../css/contract_register_style.css'
-import AddIcon from '@mui/icons-material/Add';
+import '../css/contract_register_style.css'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
-import ClearIcon from '@mui/icons-material/Clear';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 const cookies = new Cookies();
 
-function ControlFaltas() {
+function ListarAsistencias() {
 
   const [empleados, setEmpleados] = useState([]);
   const [errors, setErrors] = useState({});
-  
+
   useEffect(()=>{
     getEmpleados();
   }, []);
 
   const getEmpleados = async () => {
 
-    const respuesta = await axios.get(`http://127.0.0.1:8000/api/obtener_ausencias`);
+    const respuesta = await axios.get(`http://127.0.0.1:8000/api/obtener_asistencias`);
 
-    console.log(respuesta.data.ausencias);
+    console.log(respuesta.data.asistencias);
 
-    let empleadosConAusencias = [];
+    let empleadosConAsistencias = [];
 
-    for (let i = 0; i < respuesta.data.ausencias.length; i++) {
-      let empleado = respuesta.data.ausencias[i];
-      for(let j = 0; j < empleado.ausencias.length; j++){
-          let nombre = empleado.nombre;
-          let apellido = empleado.apellido;
-          let ci = empleado.ci;
-          let area = empleado.contracts[empleado.contracts.length-1].area;
-          let cargo = empleado.contracts[empleado.contracts.length-1].cargo;
-          let fechaInicio = empleado.contracts[empleado.contracts.length-1].fecha_inicio;
-          let fechaFinal = empleado.contracts[empleado.contracts.length-1].fecha_final;
+    for (let i = 0; i < respuesta.data.asistencias.length; i++) {
+          let empleado = respuesta.data.asistencias[i];
 
-          let fechaAusencia = empleado.ausencias[j].fecha;
-          var mydate = new Date(fechaAusencia);
+          let nombre = empleado.asistencias.nombre;
+          let apellido = empleado.asistencias.apellido;
+          let ci = empleado.asistencias.ci;
+          let area = empleado.asistencias.contracts[0].area;
+          let cargo = empleado.asistencias.contracts[0].cargo;
+          let hora_entrada = empleado.hora_entrada;
+          let hora_salida = empleado.hora_salida;
+          let fechaAsistencia = empleado.fecha;
+          var mydate = new Date(fechaAsistencia);
           let dia = mydate.getDate() + 1;
           let mes = mydate.getMonth() + 1;
           let format4 = dia + "-" + mes + "-" + mydate.getFullYear();
-          
-          let idAusencia = empleado.ausencias[j].id
-          let motivo = empleado.ausencias[j].motivo
-          let datos = {nombre: nombre, apellido: apellido, ci: ci, area: area, cargo:cargo ,fecha_inicio:fechaInicio, fecha_final:fechaFinal, fecha: format4, id_ausencia: idAusencia, motivo: motivo, fecha_ausencia_original:fechaAusencia };
-          empleadosConAusencias.push(datos);
-      }
+
+          let datos = {nombre: nombre, apellido: apellido, ci: ci, area: area, cargo:cargo,hora_entrada:hora_entrada,hora_salida:hora_salida, fecha: format4, fecha_ausencia_original:fechaAsistencia };
+          empleadosConAsistencias.push(datos);
+
     }
-    console.log(empleadosConAusencias);
-    setEmpleados(empleadosConAusencias);
+    console.log(empleadosConAsistencias);
+    setEmpleados(empleadosConAsistencias);
     console.log(empleados);
   }
 
@@ -132,7 +125,7 @@ function ControlFaltas() {
       }
     }
   }
-  
+
   const manejarPrimeraFecha = (e)  => {
     let primera_fecha_valor = document.querySelector("#primera_fecha").value;
     let segunda_fecha_valor = document.querySelector("#segunda_fecha").value;
@@ -161,7 +154,7 @@ function ControlFaltas() {
         }
 
       })
-      
+
     }else{
       validationErrors.fecha_final = "Debe introducir una fecha";
     }
@@ -220,7 +213,7 @@ function ControlFaltas() {
     <>
       <Row className="d-flex align-items-center justify-content-center">
         <Col className="d-flex align-items-center justify-content-center">
-          <h2>Control de faltas</h2>
+          <h2>Lista de asistencia</h2>
         </Col>
       </Row>
 
@@ -256,7 +249,7 @@ function ControlFaltas() {
         <Col
           xs={5}
           className="d-flex align-items-center justify-content-center"
-          
+
         >
           <div className="entradaBuscador-admin" >
             <input
@@ -323,8 +316,9 @@ function ControlFaltas() {
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Area</th>
-              <th>Fecha de falta</th>
-              <th>Mas informacion</th>
+              <th>Fecha de asistencia</th>
+              <th>Hora de entrada</th>
+              <th>Hora de salida</th>
             </tr>
           </thead>
           <tbody>
@@ -336,18 +330,13 @@ function ControlFaltas() {
                   <td className="empleado_area">
                     {empleado.area}
                   </td>
-                  <td>{empleado.fecha}</td>
                   <td>
-                  <Button
-                      variant="info"
-                      onClick={() => redirigirInformacionFalta(empleado)}
-                      style={{
-                        backgroundColor: "#65B8A6",
-                        borderColor: "#65B8A6",
-                      }}
-                    >
-                      <RemoveRedEyeIcon />
-                    </Button>
+                    {empleado.fecha}</td>
+                  <td>
+                    {empleado.hora_entrada}
+                  </td>
+                  <td>
+                    {empleado.hora_salida ? empleado.hora_salida : "No marcó salida"}
                   </td>
                 </tr>
               );
@@ -359,4 +348,4 @@ function ControlFaltas() {
   );
 }
 
-export default ControlFaltas;
+export default ListarAsistencias;
