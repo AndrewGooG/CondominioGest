@@ -294,7 +294,7 @@ export default function PersonalPage() {
                             <Chip
                               className="prueba_chip"
                               style={getContratoStyle(
-                                contratoList.some(
+                                contratoList?.some(
                                   (element: any) =>
                                     element.idSolicitud ===
                                     solicitud.idRegistroSolicitud
@@ -305,7 +305,7 @@ export default function PersonalPage() {
                                   : 2
                               )}
                               label={getContratoLabel(
-                                contratoList.some(
+                                contratoList?.some(
                                   (element: any) =>
                                     element.idSolicitud ===
                                     solicitud.idRegistroSolicitud
@@ -316,7 +316,7 @@ export default function PersonalPage() {
                                   : 2
                               )}
                               onClick={
-                                contratoList.some(
+                                contratoList?.some(
                                   (element: any) =>
                                     element.idSolicitud ===
                                     solicitud.idRegistroSolicitud
