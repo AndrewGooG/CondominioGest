@@ -154,19 +154,21 @@ export default function PersonalPage() {
   };
   const handleChangeNombre = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const onlyAlphabets = value.replace(/[^a-zA-Z\s]/g, ""); // Permitir solo letras y espacios
-    setSolicitud({ ...solicitud, nombrePropietario: onlyAlphabets });
+    setSolicitud({ ...solicitud, nombrePropietario: value });
+    // const onlyAlphabets = value.replace(/[^a-zA-Z\s]/g, ""); // Permitir solo letras y espacios
+    // setSolicitud({ ...solicitud, nombrePropietario: onlyAlphabets });
   };
 
   const handleChangeTelefono = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    const onlyNums = value.replace(/[^0-9]/g, "");
-    if (
-      onlyNums === "" ||
-      (onlyNums.length <= 8 && /^[42367]/.test(onlyNums))
-    ) {
-      setSolicitud({ ...solicitud, numerReferencia: onlyNums });
-    }
+    setSolicitud({ ...solicitud, numerReferencia: value });
+    // const onlyNums = value.replace(/[^0-9]/g, "");
+    // if (
+    //   onlyNums === "" ||
+    //   (onlyNums.length <= 8 && /^[42367]/.test(onlyNums))
+    // ) {
+    //   setSolicitud({ ...solicitud, numerReferencia: onlyNums });
+    // }
   };
 
   const handleClickRegistrar = async () => {
@@ -189,25 +191,29 @@ export default function PersonalPage() {
     }
 
     // console.log("🚀 ~ handleClickRegistrar ~ dataToSend:", dataToSend);
-    if (currentDestino === 1) {
-      if (ubicacion === "") {
-        alert("Todos los campos obligatorios deben estar llenos");
-        return;
-      }
-    }
+    // if (currentDestino === 1) {
+    //   if (ubicacion === "") {
+    //     alert("Todos los campos obligatorios deben estar llenos");
+    //     return;
+    //   }
+    // }
 
-    if (
-      solicitud.nombrePropietario !== "" &&
-      solicitud.numerReferencia !== "" &&
-      solicitud.idCategoria !== 0
-    ) {
-      const response = await createSolicitudServicio(dataToSend);
-      console.log(response);
-      alert("La informacion proporcionada se ha registrado");
-      window.location.reload();
-    } else {
-      alert("Los campos obligatorios deben estar llenos");
-    }
+    // if (
+    //   solicitud.nombrePropietario !== "" &&
+    //   solicitud.numerReferencia !== "" &&
+    //   solicitud.idCategoria !== 0
+    // ) {
+    //   const response = await createSolicitudServicio(dataToSend);
+    //   console.log(response);
+    //   alert("La informacion proporcionada se ha registrado");
+    //   window.location.reload();
+    // } else {
+    //   alert("Los campos obligatorios deben estar llenos");
+    // }
+    const response = await createSolicitudServicio(dataToSend);
+    //   console.log(response);
+    //   alert("La informacion proporcionada se ha registrado");
+    window.location.reload();
   };
 
   const handleChangeBloque = async (
@@ -412,7 +418,7 @@ export default function PersonalPage() {
                 required
                 id="outlined"
                 label="Telefono"
-                type="tel"
+                type="number"
                 placeholder="Ingrese telefono"
                 value={solicitud.numerReferencia}
                 onChange={handleChangeTelefono}
